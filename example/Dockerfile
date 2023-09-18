@@ -1,12 +1,49 @@
+FROM ghcr.io/linuxserver/baseimage-alpine:3.17
+LABEL maintainer="mdhiggins <mdhiggins23@gmail.com>"
+
+ENV PAS_PATH /usr/local/pas
+ENV PAS_UPDATE false
+
+# get python3 and git, and install python libraries
+RUN \
+  apk add --no-cache \
+    git \
+    python3 \
+    py3-pip && \
+# make directory
+  mkdir ${PAS_PATH} && \
+# download repo
+  git clone https://github.com/mdhiggins/PlexAutoSkip.git ${PAS_PATH} && \
+# install pip, venv, and set up a virtual self contained python environment
+  python3 -m pip install --user --upgrade pip && \
+  python3 -m pip install --user virtualenv && \
+  python3 -m virtualenv ${PAS_PATH}/venv && \
+  ${PAS_PATH}/venv/bin/pip install -r ${PAS_PATH}/setup/requirements.txt && \
+# link config
+  ln -s /config ${PAS_PATH}/config && \
+# cleanup
+  apk del --purge && \
+  rm -rf \
+    /root/.cache \
+    /tmp/*
+
+VOLUME /config
+
+# COPY extras/ ${PAS_PATH}/
+COPY root/ /
+
+
+
+
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
-ARG BUILD_FROM
-FROM $BUILD_FROM
+#ARG BUILD_FROM
+#FROM $BUILD_FROM
 
 # Execute during the build of the image
-ARG TEMPIO_VERSION BUILD_ARCH
-RUN \
-    curl -sSLf -o /usr/bin/tempio \
-    "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
+#ARG TEMPIO_VERSION BUILD_ARCH
+#RUN \
+#    curl -sSLf -o /usr/bin/tempio \
+#    "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
 
 # Copy root filesystem
-COPY rootfs /
+#COPY rootfs /
