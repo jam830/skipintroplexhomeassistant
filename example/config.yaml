@@ -3,7 +3,7 @@ name: Skip Intro Plex
 version: "1.2.0"
 slug: example
 description: Skip Intro - Plex add-on
-url: "https://github.com/home-assistant/addons-example/tree/main/example"
+url: "https://github.com/jam830/skipintroplexhomeassistant/tree/main/example"
 arch:
   - armhf
   - armv7
