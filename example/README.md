@@ -1,6 +1,6 @@
-# Home Assistant Add-on: Example add-on
+# Home Assistant Add-on: Skip Intro - Plex Add-on
 
-_Example add-on to use as a blueprint for new add-ons._
+_Skip Intro - Plex Add-on._
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
