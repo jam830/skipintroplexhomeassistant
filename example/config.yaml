@@ -11,6 +11,7 @@ arch:
   - amd64
   - i386
 init: false
+startup: services
 map:
   - share:rw
 options:
